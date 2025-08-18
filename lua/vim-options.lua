@@ -1,4 +1,3 @@
--- your existing tab settings…
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -6,10 +5,9 @@ vim.opt.shiftwidth = 4
 
 vim.opt.smartindent = true
 
--- then add:
 vim.opt.list = true
 vim.opt.listchars = {
-  space = "·",
+  space = " ",
   eol = "↴",
   tab = "▸ ",
   trail = "·",
@@ -22,7 +20,7 @@ vim.opt.relativenumber = true -- Show relative line numbers
 vim.opt.mouse = "a" -- Enable mouse support
 vim.opt.clipboard = "unnamedplus" -- Use system clipboard
 vim.opt.undofile = true -- Persistent undo history
-vim.opt.updatetime = 300 -- Faster completion
+vim.opt.updatetime = 50 -- Faster completion
 vim.opt.signcolumn = "yes" -- Show sign column (e.g., for Git/gutter)
 
 vim.opt.ignorecase = true -- Ignore case in searches
