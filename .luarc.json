@@ -1,5 +1,9 @@
 {
     "diagnostics.globals": [
-        "capabilities"
+        "capabilities",
+        "a"
+    ],
+    "diagnostics.disable": [
+        "missing-parameter"
     ]
 }

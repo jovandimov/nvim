@@ -8,6 +8,7 @@ return {
         modules = {}, -- you can leave this empty unless you use TS playground, textobjects, etc.
         sync_install = false, -- install languages synchronously (only really needed on CI)
         ignore_install = {}, -- list of parsers to ignore installing
+        auto_install = true, -- install missing parsers automatically when entering buffer
         ensure_installed = {
           "javascript",
           "typescript",
@@ -19,13 +20,12 @@ return {
           "bash",
           "go",
         },
-        auto_install = true, -- install missing parsers automatically when entering buffer
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
         },
         indent = {
-          enable = true,
+          enable = false,
         },
       })
     end,
