@@ -17,19 +17,17 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     opts = {
-      ensure_installed = { "tsserver", "lua_ls" }, -- Automatically install these LSPs
+      ensure_installed = { "tsserver", "lua_ls" },
       automatic_installation = true,
     },
   },
   {
     "neovim/nvim-lspconfig",
     config = function()
-      -- Use default LSP capabilities
       local capabilities = vim.lsp.protocol.make_client_capabilities()
 
       local lspconfig = require("lspconfig")
 
-      -- TypeScript/JavaScript setup
       lspconfig.tsserver.setup({
         capabilities = capabilities,
         settings = {
@@ -89,14 +87,12 @@ return {
         capabilities = capabilities,
       })
 
-      -- Keymaps with descriptions for which-key
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
       vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to References" })
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
       vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" })
 
-      -- Additional useful keymaps
       vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to Declaration" })
       vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { desc = "Format Document" })
       vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
