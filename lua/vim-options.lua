@@ -1,20 +1,22 @@
 vim.opt.list = false
 
-vim.opt.listchars = {
-  space = " ",
-  eol = "↴",
-  tab = "▸ ",
-  trail = "·",
-  extends = "❯",
-  precedes = "❮",
-}
+-- vim.opt.listchars = {
+--   space = " ",
+--   eol = "↴",
+--   tab = "▸ ",
+--   trail = "·",
+--   extends = "❯",
+--   precedes = "❮",
+-- }
 
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
-vim.opt.smartindent = true
+vim.opt.smartindent = false
+vim.opt.autoindent = false
+vim.opt.cindent = false
 
 vim.opt.number = true
 vim.opt.relativenumber = true
