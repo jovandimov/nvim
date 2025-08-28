@@ -4,6 +4,7 @@
         "a"
     ],
     "diagnostics.disable": [
-        "missing-parameter"
+        "missing-parameter",
+        "duplicate-set-field"
     ]
 }
