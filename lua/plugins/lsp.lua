@@ -3,21 +3,51 @@ return {
     "williamboman/mason.nvim",
     config = function()
       require("mason").setup({
-        ui = {
-          border = "rounded",
-          icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗",
+        registries = {
+          "github:mason-org/mason-registry",
+          "github:Crashdummyy/mason-registry",
+        },
+      })
+    end,
+  },
+  -- After this do :MasonInstall roslyn / probably rozlyn works with .net9 only ...
+  {
+    "seblyng/roslyn.nvim",
+    opts = {},
+
+    config = function()
+      local mason_registry = require("mason-registry")
+
+      vim.lsp.config("roslyn", {
+        on_attach = function()
+          print("This will run when the server attaches!")
+        end,
+        settings = {
+          ["csharp|inlay_hints"] = {
+            csharp_enable_inlay_hints_for_implicit_object_creation = true,
+            csharp_enable_inlay_hints_for_implicit_variable_types = true,
+          },
+          ["csharp|code_lens"] = {
+            dotnet_enable_references_code_lens = true,
           },
         },
       })
+      vim.lsp.enable("roslyn")
     end,
   },
   {
     "williamboman/mason-lspconfig.nvim",
     opts = {
-      ensure_installed = { "tsserver", "lua_ls" },
+      ensure_installed = {
+        "tsserver",
+        "eslint",
+        "lua_ls",
+        "html",
+        "cssls",
+        "jsonls",
+        "bashls",
+        "tailwindcss",
+      },
       automatic_installation = true,
     },
   },
@@ -56,33 +86,6 @@ return {
         },
       })
 
-      -- todo jovan maybe delete this or uncomment;
-      -- Lua setup with LazyVim-specific settings
-      -- lspconfig.lua_ls.setup({
-      --   capabilities = capabilities,
-      --   settings = {
-      --     Lua = {
-      --       runtime = { version = "LuaJIT" },
-      --       diagnostics = {
-      --         globals = { "vim" }, -- Recognize vim global
-      --       },
-      --       workspace = {
-      --         library = {
-      --           vim.env.VIMRUNTIME, -- Neovim runtime files
-      --           "${3rd}/luv/library", -- For luajit
-      --         },
-      --         checkThirdParty = false,
-      --       },
-      --       telemetry = { enable = false },
-      --       hint = {
-      --         enable = true, -- Enable inlay hints
-      --         arrayIndex = "Enable",
-      --         setType = true,
-      --       },
-      --     },
-      --   },
-      -- })
-
       lspconfig.lua_ls.setup({
         capabilities = capabilities,
       })
@@ -97,10 +100,9 @@ return {
       vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { desc = "Format Document" })
       vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 
-      -- Diagnostic configuration
       vim.diagnostic.config({
         virtual_text = {
-          prefix = "●", -- Could be '■', '▎', 'x'
+          prefix = "●",
         },
         signs = {
           text = {

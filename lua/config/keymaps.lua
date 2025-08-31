@@ -22,3 +22,6 @@ end
 
 -- Map it to <Tab><Tab> in normal mode
 vim.keymap.set("n", "<Tab><Tab>", jump_to_prev_buffer, { desc = "Switch to previous buffer" })
+
+map("n", "<A-Left>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous buffer" })
+map("n", "<A-Right>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
