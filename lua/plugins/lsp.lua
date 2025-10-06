@@ -1,131 +1,131 @@
 return {
-  {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup({
-        registries = {
-          "github:mason-org/mason-registry",
-          "github:Crashdummyy/mason-registry",
-        },
-      })
-    end,
-  },
-  -- After this do :MasonInstall roslyn / probably rozlyn works with .net9 only ...
-  {
-    "seblyng/roslyn.nvim",
-    opts = {},
-
-    config = function()
-      local mason_registry = require("mason-registry")
-
-      vim.lsp.config("roslyn", {
-        on_attach = function()
-          print("This will run when the server attaches!")
-        end,
-        settings = {
-          ["csharp|inlay_hints"] = {
-            csharp_enable_inlay_hints_for_implicit_object_creation = true,
-            csharp_enable_inlay_hints_for_implicit_variable_types = true,
-
-            csharp_enable_inlay_hints_for_lambda_parameter_types = true,
-            csharp_enable_inlay_hints_for_types = true,
-            dotnet_enable_inlay_hints_for_indexer_parameters = true,
-            dotnet_enable_inlay_hints_for_literal_parameters = true,
-            dotnet_enable_inlay_hints_for_object_creation_parameters = true,
-            dotnet_enable_inlay_hints_for_other_parameters = true,
-            dotnet_enable_inlay_hints_for_parameters = true,
-            dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
-            dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
-            dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true,
-          },
-          ["csharp|code_lens"] = {
-            dotnet_enable_references_code_lens = true,
-          },
-        },
-      })
-      vim.lsp.enable("roslyn")
-    end,
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    opts = {
-      ensure_installed = {
-        "tsserver",
-        "eslint",
-        "lua_ls",
-        "html",
-        "cssls",
-        "jsonls",
-        "bashls",
-        "tailwindcss",
-      },
-      automatic_installation = true,
-    },
-  },
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-      local lspconfig = require("lspconfig")
-
-      lspconfig.tsserver.setup({
-        capabilities = capabilities,
-        settings = {
-          typescript = {
-            inlayHints = {
-              includeInlayParameterNameHints = "all",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
-            },
-          },
-          javascript = {
-            inlayHints = {
-              includeInlayParameterNameHints = "all",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
-            },
-          },
-        },
-      })
-
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-      })
-
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
-      vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to References" })
-      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
-      vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" })
-
-      vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to Declaration" })
-      vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { desc = "Format Document" })
-      vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-
-      vim.diagnostic.config({
-        virtual_text = {
-          prefix = "●",
-        },
-        signs = {
-          text = {
-            [vim.diagnostic.severity.ERROR] = "✘",
-            [vim.diagnostic.severity.WARN] = "▲",
-            [vim.diagnostic.severity.HINT] = "⚑",
-            [vim.diagnostic.severity.INFO] = "»",
-          },
-        },
-        update_in_insert = false,
-        severity_sort = true,
-      })
-    end,
-  },
+  -- {
+  --   "williamboman/mason.nvim",
+  --   config = function()
+  --     require("mason").setup({
+  --       registries = {
+  --         "github:mason-org/mason-registry",
+  --         "github:Crashdummyy/mason-registry",
+  --       },
+  --     })
+  --   end,
+  -- },
+  -- -- After this do :MasonInstall roslyn / probably rozlyn works with .net9 only ...
+  -- {
+  --   "seblyng/roslyn.nvim",
+  --   opts = {},
+  --
+  --   config = function()
+  --     local mason_registry = require("mason-registry")
+  --
+  --     vim.lsp.config("roslyn", {
+  --       on_attach = function()
+  --         print("This will run when the server attaches!")
+  --       end,
+  --       settings = {
+  --         ["csharp|inlay_hints"] = {
+  --           csharp_enable_inlay_hints_for_implicit_object_creation = true,
+  --           csharp_enable_inlay_hints_for_implicit_variable_types = true,
+  --
+  --           csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+  --           csharp_enable_inlay_hints_for_types = true,
+  --           dotnet_enable_inlay_hints_for_indexer_parameters = true,
+  --           dotnet_enable_inlay_hints_for_literal_parameters = true,
+  --           dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+  --           dotnet_enable_inlay_hints_for_other_parameters = true,
+  --           dotnet_enable_inlay_hints_for_parameters = true,
+  --           dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
+  --           dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
+  --           dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true,
+  --         },
+  --         ["csharp|code_lens"] = {
+  --           dotnet_enable_references_code_lens = true,
+  --         },
+  --       },
+  --     })
+  --     vim.lsp.enable("roslyn")
+  --   end,
+  -- },
+  -- {
+  --   "williamboman/mason-lspconfig.nvim",
+  --   opts = {
+  --     ensure_installed = {
+  --       "tsserver",
+  --       "eslint",
+  --       "lua_ls",
+  --       "html",
+  --       "cssls",
+  --       "jsonls",
+  --       "bashls",
+  --       "tailwindcss",
+  --     },
+  --     automatic_installation = true,
+  --   },
+  -- },
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   config = function()
+  --     local capabilities = vim.lsp.protocol.make_client_capabilities()
+  --
+  --     local lspconfig = require("lspconfig")
+  --
+  --     lspconfig.tsserver.setup({
+  --       capabilities = capabilities,
+  --       settings = {
+  --         typescript = {
+  --           inlayHints = {
+  --             includeInlayParameterNameHints = "all",
+  --             includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+  --             includeInlayFunctionParameterTypeHints = true,
+  --             includeInlayVariableTypeHints = true,
+  --             includeInlayPropertyDeclarationTypeHints = true,
+  --             includeInlayFunctionLikeReturnTypeHints = true,
+  --             includeInlayEnumMemberValueHints = true,
+  --           },
+  --         },
+  --         javascript = {
+  --           inlayHints = {
+  --             includeInlayParameterNameHints = "all",
+  --             includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+  --             includeInlayFunctionParameterTypeHints = true,
+  --             includeInlayVariableTypeHints = true,
+  --             includeInlayPropertyDeclarationTypeHints = true,
+  --             includeInlayFunctionLikeReturnTypeHints = true,
+  --             includeInlayEnumMemberValueHints = true,
+  --           },
+  --         },
+  --       },
+  --     })
+  --
+  --     lspconfig.lua_ls.setup({
+  --       capabilities = capabilities,
+  --     })
+  --
+  --     vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
+  --     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
+  --     vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to References" })
+  --     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+  --     vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" })
+  --
+  --     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to Declaration" })
+  --     vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { desc = "Format Document" })
+  --     vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+  --
+  --     vim.diagnostic.config({
+  --       virtual_text = {
+  --         prefix = "●",
+  --       },
+  --       signs = {
+  --         text = {
+  --           [vim.diagnostic.severity.ERROR] = "✘",
+  --           [vim.diagnostic.severity.WARN] = "▲",
+  --           [vim.diagnostic.severity.HINT] = "⚑",
+  --           [vim.diagnostic.severity.INFO] = "»",
+  --         },
+  --       },
+  --       update_in_insert = false,
+  --       severity_sort = true,
+  --     })
+  --   end,
+  -- },
 }
