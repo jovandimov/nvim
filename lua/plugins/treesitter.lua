@@ -5,6 +5,10 @@ return {
     opts = {
       ensure_installed = {
         "c_sharp",
+        "go",
+        "gomod",
+        "gosum",
+        "gowork",
         "html",
         "javascript",
         "jsdoc",
