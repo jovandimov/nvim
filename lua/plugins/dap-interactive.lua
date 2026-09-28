@@ -16,17 +16,17 @@ return {
         end,
         desc = "Toggle REPL Popup",
       },
-      -- Multi-line scratchpad
+      -- Multi-line scratchpad (<leader>ds stays LazyVim's "Session")
       {
-        "<leader>ds",
+        "<leader>dS",
         function()
           require("config.dap-interactive").toggle_scratchpad()
         end,
         desc = "Toggle Scratchpad",
       },
-      -- Watch expressions
+      -- Watch expressions (<leader>dW group; <leader>dw stays LazyVim's "Widgets")
       {
-        "<leader>dwa",
+        "<leader>dWa",
         function()
           require("config.dap-interactive").add_watch()
         end,
@@ -34,14 +34,14 @@ return {
         mode = { "n", "x" },
       },
       {
-        "<leader>dwr",
+        "<leader>dWr",
         function()
           require("config.dap-interactive").remove_watch()
         end,
         desc = "Remove Watch Expression",
       },
       {
-        "<leader>dww",
+        "<leader>dWw",
         function()
           require("config.dap-interactive").toggle_watches()
         end,

@@ -10,6 +10,7 @@ local state = {
   scratchpad_popup = nil,
   scratchpad_buf = nil,
   scratchpad_result_popup = nil,
+  scratchpad_ft = nil,
   watches_popup = nil,
 }
 
@@ -159,9 +160,20 @@ local function evaluate_line_or_selection()
   end
 end
 
+-- Language of the buffer the scratchpad is opened from (e.g. cs, typescript); dap/UI buffers
+-- keep the previous choice.
+local function scratchpad_filetype()
+  local ft = vim.bo.filetype
+  if ft == "" or vim.bo.buftype ~= "" or ft:find("^dap") then
+    return state.scratchpad_ft or "typescript"
+  end
+  return ft
+end
+
 function M.toggle_scratchpad()
   local Popup = require("nui.popup")
   local dap = require("dap")
+  state.scratchpad_ft = scratchpad_filetype()
 
   -- Check for active debug session
   if not dap.session() then
@@ -181,6 +193,9 @@ function M.toggle_scratchpad()
 
   -- If popup exists but hidden, show it
   if state.scratchpad_popup and state.scratchpad_buf and vim.api.nvim_buf_is_valid(state.scratchpad_buf) then
+    if vim.bo[state.scratchpad_buf].filetype ~= state.scratchpad_ft then
+      vim.bo[state.scratchpad_buf].filetype = state.scratchpad_ft
+    end
     state.scratchpad_popup:show()
     vim.api.nvim_set_current_win(state.scratchpad_popup.winid)
     return
@@ -188,8 +203,8 @@ function M.toggle_scratchpad()
 
   -- Create new scratchpad buffer
   state.scratchpad_buf = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_option(state.scratchpad_buf, "filetype", "typescript")
-  vim.api.nvim_buf_set_option(state.scratchpad_buf, "buftype", "nofile")
+  vim.bo[state.scratchpad_buf].buftype = "nofile"
+  vim.bo[state.scratchpad_buf].filetype = state.scratchpad_ft
   vim.api.nvim_buf_set_name(state.scratchpad_buf, "dap-scratchpad")
 
   -- Add placeholder text

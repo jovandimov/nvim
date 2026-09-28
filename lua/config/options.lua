@@ -2,6 +2,15 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
+-- Disable LazyVim's auto-format on save (manual formatting only)
+vim.g.autoformat = false
+
+-- TypeScript: use the native TypeScript 7 language server (Mason `tsc`) instead of vtsls
+vim.g.lazyvim_ts_lsp = "tsc"
+
+-- Only run Prettier in projects that have a Prettier config; Biome projects use biome-check
+vim.g.lazyvim_prettier_needs_config = true
+
 -- Indentation: Use 4 spaces (override LazyVim's 2-space default)
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
